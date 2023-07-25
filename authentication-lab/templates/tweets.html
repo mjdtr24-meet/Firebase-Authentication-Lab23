@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>tweets </title>
+</head>
+<body>
+	{%for tweet in tweets%}
+		{{tweets[tweet]['title']}}
+		{{tweets[tweet]['text']}}
+	{% endfor %}
+</body>
+</html>

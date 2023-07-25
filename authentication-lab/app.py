@@ -57,7 +57,7 @@ def signup():
             UID = login_session['user']['localId']
             db.child("Users").child(UID).set(user)
             return redirect(url_for('add_tweet'))
-        except:
+        except: 
             error = "Authenication Error"
             return redirect(url_for('signin'))
     return render_template("signup.html")
@@ -65,7 +65,27 @@ def signup():
 
 @app.route('/add_tweet', methods=['GET', 'POST'])
 def add_tweet():
+    if request.method == 'POST':
+        uid = login_session['user']['localId']
+        title = request.form['title']
+        text = request.form['text']
+        tweet = {'title': title, 'text': text, 'uid': uid}
+        db.child('Tweets').push(tweet)
     return render_template("add_tweet.html")
+
+
+
+
+
+
+@app.route('/all_tweets')
+def all_tweets():
+    tweets = db.child("Tweets").get().val()
+    return render_template("tweets.html", tweets=tweets)
+
+
+
+
 
 
 if __name__ == '__main__':
